@@ -1,10 +1,7 @@
-## About
+## About **ASCADv2** 
 
-**ASCADv2** 
 This repository provides scripts and Deep Learning models that demonstrate the efficiency of Deep Learning for SCA.
 * [Affine masked AES implementation on an STM23](./STM32_AES_v2)
-
-Copyright (C) 2021, ANSSI and CEA
 
 The databases, the Deep Learning models and the companion python scripts of this repository are placed under the BSD licence.
 Please check the [LICENSE](LICENSE) file for more information.
@@ -49,7 +46,7 @@ Note that these libraries are generally packaged in most of Linux distributions,
 
 Finally, please note that the scripts **only work with Python 3** since we rely on tensorflow 2.
 
-We propose hereafter a high-level description of the proposed scripts. The default parameters of these scripts vary with the downloaded campaign, and are provided as a file in the corresponding folders:
+We propose hereafter a high-level description of the proposed scripts. The default parameters of these scripts are provided as a file in the corresponding folders:
 
 | Implementation             | Campaign        | Platform  														| Link  																					 |
 | :------------------------: | :-------------: | :-------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------- |
