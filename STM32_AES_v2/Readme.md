@@ -10,15 +10,7 @@ In the new folder, first download the data packages with the raw data by using:
 $ cd STM32_AES_v2
 $ mkdir -p ASCAD_data/ASCAD_databases
 $ cd ASCAD_data/ASCAD_databases
-$ wget https://www.data.gouv.fr/fr/datasets/r/a6cf925c-079c-4468-a723-d94bce6c31f8  # Extracted dataset
-$ wget https://www.data.gouv.fr/fr/datasets/r/78697eec-7adf-4f68-bffa-b55640b40478  # Full dataset part 1
-$ wget https://www.data.gouv.fr/fr/datasets/r/b3a41a00-3552-40a6-a18e-d7f1b97596ae  # Full dataset part 2
-$ wget https://www.data.gouv.fr/fr/datasets/r/b3775bf7-8657-4b02-964c-7cafa3ff8d06  # Full dataset part 3
-$ wget https://www.data.gouv.fr/fr/datasets/r/4f489a9c-70d8-487f-ad95-5ce2a6af9cdd  # Full dataset part 4
-$ wget https://www.data.gouv.fr/fr/datasets/r/98988df2-80ec-4f0a-af8f-32b38ccd742e  # Full dataset part 5
-$ wget https://www.data.gouv.fr/fr/datasets/r/651a3ba2-bced-4f3b-8287-a40935b4e60f  # Full dataset part 6
-$ wget https://www.data.gouv.fr/fr/datasets/r/8f32464b-6bdf-4720-9890-b7048e9822f1  # Full dataset part 7
-$ wget https://www.data.gouv.fr/fr/datasets/r/bea66e8a-75c2-43c3-ae38-f4dc26ae2df5  # Full dataset part 8
+$ download_dataset.sh
 </pre>
 
 Please be aware that all these steps should **download around 807 GB** of data.
@@ -30,10 +22,7 @@ Once this step is over, you can download the trained models:
 <pre>
 $ mkdir ../ASCAD_trained_models
 $ cd ../ASCAD_trained_models
-$ wget https://www.data.gouv.fr/fr/datasets/r/a4eeef49-2c6a-40e3-9e8e-f8ecccb52974
-$ wget https://www.data.gouv.fr/fr/datasets/r/c26d7e7c-f1ff-4ba0-9384-983bf62d00e4
-$ unzip ascadv2-multi-resnet-earlystopping.zip
-$ unzip ascadv2-multi-resnet-wo-permind-earlystopping.zip
+$ download_models.sh
 </pre>
 The first model corresponds to a multitask ResNet model that predicts all the intermediate mask values (multiplicative mask, additive mask, shuffled masked sbox output for each index i in [1..16], shuffle index for i in [1..16]). The second model ignores that the implementation has shuffled the sbox outputs and classifies directly the multiplicative mask, additive mask, and the masked sbox outputs without shuffle. More details about the two models may be found in the submission.
 ## Test the trained models
