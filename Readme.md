@@ -1,14 +1,9 @@
 ## About
 
-**ASCAD** (ANSSI SCA Database) is a set of databases that aims at providing a benchmarking reference for the SCA community: the purpose is to have something similar to the [MNIST database](http://yann.lecun.com/exdb/mnist/) that the Machine Learning community has been using for quite a while now to evaluate classification algorithms performance.
-
+**ASCADv2** 
 This repository provides scripts and Deep Learning models that demonstrate the efficiency of Deep Learning for SCA.
-
-Several databases are available, depending on the underlying implementation and architecture. More information is available in the corresponding folders:
-* [First-order boolean masked AES implementation on an ATMEGA8515](./ATMEGA_AES_v1)
 * [Affine masked AES implementation on an STM23](./STM32_AES_v2)
 
-## Copyright and license
 Copyright (C) 2021, ANSSI and CEA
 
 The databases, the Deep Learning models and the companion python scripts of this repository are placed under the BSD licence.
@@ -22,18 +17,12 @@ The scripts and the data are split in two places mainly because git is not suite
 
 In order to get everything up and running, here are the steps to follow (we provide the steps using a Unix shell syntax, but you can adapt this and use your favorite shell of course):
 
-1. Clone the current repository to get the scripts:
-
-```
-git clone https://github.com/ANSSI-FR/ASCAD.git
-```
+1. Clone the current repository to get the scripts
 
 2. Click on the link corresponding to the chosen campaign and follow the instructions to download and unpack the database.
 
 | Implementation | Campaign     | Type        | Link  |
 | ------------------------ |:-------------:| -----: | :----: |
-| ATMEGA boolean masked AES | fixed key    | Power (Icc) | [link](./ATMEGA_AES_v1/ATM_AES_v1_fixed_key/Readme.md) |
-| ATMEGA boolean masked AES | variable key | Power (Icc) | [link](./ATMEGA_AES_v1/ATM_AES_v1_variable_key/Readme.md) |
 | STM32  affine masked AES  | variable key | Power (Icc) | [link](./STM32_AES_v2/Readme.md) |
 
 3. Install the last version of Tensorflow 2 for your platform. Some versions of Tensorflow require a specific version of CUDA, up-to-date and detailed information on the installation can be found here: [https://www.tensorflow.org/install](https://www.tensorflow.org/install). You will also need Keras as the Tensorflow front end API companion. 
@@ -42,10 +31,7 @@ git clone https://github.com/ANSSI-FR/ASCAD.git
 ```
 pip install numpy h5py matplotlib tqdm
 ```
-Our scripts **now rely on Tensorflow 2**, therefore **we only support Python 3**. If you want to continue to use Python 2, please refer to a previous version of the repository, for example
-checkouting commit [30f65bb](https://github.com/ANSSI-FR/ASCAD/commit/30f65bb3279e949d74b7296ceda7f455fb70d591). However you will not be able to run the scripts on our recent databases (`STM32_AES_v2` and later).
-
-
+Our scripts **now rely on Tensorflow 2**, therefore **we only support Python 3**.
 
 ## <a name="ascad-companion-scripts"></a> ASCAD companion scripts
 
@@ -67,8 +53,6 @@ We propose hereafter a high-level description of the proposed scripts. The defau
 
 | Implementation             | Campaign        | Platform  														| Link  																					 |
 | :------------------------: | :-------------: | :-------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------- |
-| ATMEGA boolean masked AES  | fixed key | Linux | [link](./ATMEGA_AES_v1/ATM_AES_v1_fixed_key/)    |
-| ATMEGA boolean masked AES  | variable key | Linux | [link](./ATMEGA_AES_v1/ATM_AES_v1_variable_key/) |
 | STM32 affine masked AES    | variable key | Linux | [link](./STM32_AES_v2/) |
 
 Every script can be launched using the corresponding parameter file:
@@ -81,7 +65,7 @@ $ python ASCAD_test_models.py path_to_parameters_file
 It is easy to run these scripts on custom parameters, either by modifying the default values within the script, or by creating a new parameter file.
 
 ### <a name="ascad-generation"></a> ASCAD generation
-The [ASCAD_generate.py](ASCAD_generate.py) script is used to generate ASCAD databases from any of the available raw traces database. 
+The [ASCAD_generate.py](ASCAD_generate.py) script is used to generate the ASCADv2 databases from the raw traces database. 
 
 This script takes as an argument the name of a file containing a python dict with the following keys:
   * `traces_file`: this is the file name of the HDF5 raw traces with metadata database. Use this argument if all the traces are contained in a single file.
@@ -103,7 +87,7 @@ By tuning all these parameters, one is able to **generate multiple ASCAD databas
 
 The trained models can be tested using the [ASCAD_test_models.py](ASCAD_test_models.py) script.
 
-The script computes the **ranking** of the real key byte among the 256 possible candidate bytes depending on the number of attack traces the trained model takes as input for prediction: this is a classical classification algorithm efficiency check in SCA (see the article ["Study of Deep Learning Techniques for Side-Channel Analysis and Introduction to ASCAD Database"](https://eprint.iacr.org/2018/053.pdf) for a more formal definition of the keys ranking).
+The script computes the **ranking** of the real key byte among the 256 possible candidate bytes depending on the number of attack traces the trained model takes as input for prediction: this is a classical classification algorithm efficiency check in SCA.
 The evolution of the rank with respect to the number of traces is plotted using `matplotlib`.
 
 This script takes as an argument the name of a file containing a python dict with the following keys:
@@ -118,22 +102,14 @@ This script takes as an argument the name of a file containing a python dict wit
 
 
 ### Training the models
-<!-- The trained CNNs and MLPs that we provide are all derived from one CNN architecture and one MLP architecture with architectural hyper-parameters discussed in the article  [ASCAD paper](https://eprint.iacr.org/2018/053.pdf). -->
-
 We provide the [ASCAD_train_models.py](ASCAD_train_models.py) script in order to train the models. This script takes as an argument the name of a file containing a python dict with the following keys:
 
 * `ascad_database`: this is an ASCAD database one wants to use for the model training.
 * `training_model`: this is the HDF5 file where the trained model is scheduled to be saved.
 * `network_type`: this is the type of network of the model. Currently, three types of model are supported by the script: 
-  1. `mlp`: this is the multi-layer perceptron topology described in [ASCAD paper](https://eprint.iacr.org/2018/053.pdf);
-  
-  2. `cnn`: this is the convolutional neural network topology described in  [ASCAD paper](https://eprint.iacr.org/2018/053.pdf);
-  
-  3. `cnn2`: this is the convolutional neural network topology described in  [ASCAD paper](https://eprint.iacr.org/2018/053.pdf) adapted to the format of the traces in the "variable key" campaign [link](./ATMEGA_AES_v1/ATM_AES_v1_variable_key/Readme.md). 
-  
-  4. `multi_resnet`: this is the multiclassification ResNet model described during the "GDR SoC2 et Sécurité informatique" ([video](https://mediacenter3.univ-st-etienne.fr/videos/?video=MEDIA201125165945975)). This model requires the knowledge of the permutation indices of the shuffling operation during the training step.
+  1. `multi_resnet`: This model requires the knowledge of the permutation indices of the shuffling operation during the training step.
 
-  5. `multi_resnet_without_permind`: this is the multiclassification ResNet model described during the "GDR SoC2 et Sécurité informatique" ([video](https://mediacenter3.univ-st-etienne.fr/videos/?video=MEDIA201125165945975)). This model does not take the shuffling into account.
+  2. `multi_resnet_without_permind`: This model does not take the shuffling into account.
 
 * `epochs`: this is the number of epochs used for the training.
 * `batch_size`: this is the size of the batch used for training.
