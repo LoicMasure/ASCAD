@@ -13,6 +13,7 @@ $ mkdir -p ASCAD_data/ASCAD_databases
 $ cd ASCAD_data/ASCAD_databases
 $ ../../download_dataset.sh
 </pre>
+ 
 
 Please be aware that all these steps should **download around 807 GB** of data.
 You can selectively download only the [extracted database](https://www.data.gouv.fr/fr/datasets/r/a6cf925c-079c-4468-a723-d94bce6c31f8) that weights "only" 7 GB:
