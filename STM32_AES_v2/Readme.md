@@ -3,7 +3,7 @@
 We provide source code implementation of a protected AES-128 encryption and decryption for 32-bit Cortex-M ARM, which can be found on the following github repository: [ANSSI-FR/secAES-STM32](https://github.com/ANSSI-FR/SecAESSTM32). This implementation combines two side channel countermeasures: affine masking and shuffling. To test it, we measured the power consumption of a STM32 Cortex M4 microcrontroller (STM32F303RCT7) during 800,000 AES encryptions with random keys and random plaintexts. Traces have been acquired with a ChipWhisperer board [CW308T-STM32F](https://wiki.newae.com/CW308T-STM32F) by underclocking the STM32 clock to 4 MHz and acquired through an oscilloscope with a 50,000,000 sample-per-second rate. The measured traces consist of 1,000,000 samples points, encompassing the whole AES encryption. The resulting dataset will be made publicly available uppon acceptance of the submission.
 
 ## First dive into the dataset
-We provide a notebook with a small snapshot (10 traces) of the full traces in order to propose a first overview of the dataset. The notebook can be run with the `jupyter notebook` command.
+We provide a notebook (`Trace_code_analysis.ipynb`) with a small snapshot (10 traces) of the full traces in order to propose a first overview of the dataset. The notebook can be run with the `$ jupyter notebook` command.
 
 ## <a name="getting-ascadv2"> Getting the ASCADv2 databases and the trained models 
 
