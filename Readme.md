@@ -6,7 +6,7 @@ This repository provides scripts and Deep Learning models that demonstrate the e
 The databases, the Deep Learning models and the companion python scripts of this repository are placed under the BSD licence.
 Please check the [LICENSE](LICENSE) file for more information.
 
-## <a name="getting-ascad"> Getting the ASCAD databases and the trained models 
+## <a name="getting-ascad"> Getting the ASCADv2 databases and the trained models 
 
 ### Quick start guide
 
@@ -30,7 +30,7 @@ pip install numpy h5py matplotlib tqdm
 ```
 Our scripts **now rely on Tensorflow 2**, therefore **we only support Python 3**.
 
-## <a name="ascad-companion-scripts"></a> ASCAD companion scripts
+## <a name="ascad-companion-scripts"></a> ASCADv2 companion scripts
 
 ### Required Python packages
 
